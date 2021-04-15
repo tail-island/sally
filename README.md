@@ -149,7 +149,7 @@ FrozenLake-v0でQ学習できたのは、状態や行動のバリエーション
 
 で、そんな私ごときがなぜ深層強化学習できるのかといえば、数学が得意な人がすでにプログラムを組んでライブラリ化してくれたから。今回は、[Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3)を使用しました。[OpenAI](https://openai.com/)という人工知能を研究する非営利団体があって、そこが強化学習するための環境として本稿の前の方で使用したFrozenLake-v0等を含んでいるOpenAI Gymというのを作っていて、でも環境があっても強化学習のアルゴリズムをプログラミングするのはやっぱり大変だろうということで[Baselines](https://github.com/openai/baselines)という強化学習アルゴリズムの実装を作ってくれて、ただしこのBaselinesは動きはするんだけど再利用に難があって、だからフォークしてインターフェースを統一したりコメントを入れたりリファクタリングしたりして作り直したのが[Stable-Baselines](https://github.com/hill-a/stable-baselines)で、これはTensorflowのバージョン1向けに作られているんですけど、Tensorflowはバージョン2で大きな変更があって対応が大変で、ならもういっそのこと流行りのPyTorchで作り直しちゃえということで作られたのがStable-Baselines3で、タイミングが良いことに今年（2021年）にv1.0がリリースされました。
 
-## 連続値の深層強化学習のアルゴリズムは、SAC（Soft Actor Critic）
+## 連続値の深層強化学習のアルゴリズムは、SAC（Soft Actor Critic）で
 
 連続量を扱える、かつ、できるだけ新しい、かつ、Stable-Baselines3で実装済みなアルゴリズムとして、今回は2018年に論文が発表されたSAC（[論文1](https://arxiv.org/abs/1801.01290)、[論文2](https://arxiv.org/abs/1812.05905)）にしてみました。
 
@@ -159,7 +159,7 @@ SACの数式は私では全く理解できませんでしたけど、方策（�
 
 ともあれ、使用するアルゴリズムが決まりましたので、いざ深層強化学習！
 
-## オリジナルのOpen AI Gymの環境を作成
+## オリジナルのOpen AI Gymの環境を作成する
 
 ……する前に、Stable-Baselines3が前提としているOpen AI Gym形式の環境を作らなければならないのでした。早く深層強化学習をやりたいので、いきなりソース・コードを載せます。
 
