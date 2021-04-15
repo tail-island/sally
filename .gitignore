@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+.vscode
+
+log/
+log-4/
+self-driving-*.zip
