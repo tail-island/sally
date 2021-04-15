@@ -467,7 +467,6 @@ from stable_baselines3 import SAC
 from PIL import Image
 from stable_baselines3.common.callbacks import CheckpointCallback
 
-
 env = SelfDriving()
 model = SAC('MlpPolicy', env, verbose=1)
 
@@ -490,7 +489,6 @@ from self_driving import SelfDriving
 from stable_baselines3 import SAC
 from stable_baselines3.common.evaluation import evaluate_policy
 
-
 env = SelfDriving()
 
 model_path = last(sorted(glob('log/*.zip'), key=lambda f: os.stat(f).st_mtime))  # 最新のモデル・ファイルのパスを取得します。
@@ -503,7 +501,7 @@ reward_mean, _ = evaluate_policy(model, env, n_eval_episodes=1, render=True, war
 print(f'reward: {reward_mean:.02f}')
 ~~~
 
-次に、報酬設計のやり直しです。深層強化学習さんに悪気はなくて、与えられた報酬における最適解を探し出しちゃっただけで、つまるところ私が作ったプログラムの報酬が悪かったというわけ。深層強化学習では、この報酬設計がキモになるんですな。というわけで報酬を、ゲームの目的に合うように、かつ、適切な中間報酬を得られるように、環境の報酬を計算する部分を以下に修正しました。
+次に、報酬設計のやり直しです。深層強化学習さんに悪気はなくて、与えられた報酬における最適解を探し出しちゃっただけで、つまるところ私が作ったプログラムの報酬が悪かったというわけ。深層強化学習では、この報酬設計がキモになるんですな。というわけで報酬が、ゲームの目的に合うよう、かつ、適切な中間報酬になるよう、環境の報酬を計算する部分を以下のコードに変更しました。
 
 ~~~python
 @classmethod
@@ -539,7 +537,6 @@ from self_driving import SelfDriving
 from stable_baselines3 import SAC
 from stable_baselines3.common.callbacks import CheckpointCallback
 
-
 env = SelfDriving()
 model = SAC(
     'MlpPolicy',
@@ -556,7 +553,7 @@ model.save('self-driving')
 
 ## 結果（その5）
 
-やってやりました！　うまくいきましたよ、すげぇ華麗なドライビングです！
+やってやりました！　うまくいきましたよ、流れるような華麗なドライビングです！
 
 図
 
