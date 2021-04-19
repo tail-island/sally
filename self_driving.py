@@ -94,14 +94,6 @@ class SelfDriving(gym.Env):
                 mapcat(methodcaller('values'), sorted(observation['other_cars'], key=itemgetter('position_length'))),  # 距離が近い順にソートします。前後も分けたほうが良い？
                 mapcat(methodcaller('values'), sorted(observation['obstacles' ], key=itemgetter('position_length'))),  # noqa: E202
                 mapcat(methodcaller('values'), sorted(observation['stars'     ], key=itemgetter('position_length')))   # noqa: E202
-
-                # observation['my_car'].values(),
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) <= np.pi / 2, observation['other_cars']), key=itemgetter('position_length'))),                # 前方向は距離が近い順にソートします。
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) >  np.pi / 2, observation['other_cars']), key=itemgetter('position_length'), reverse=True)),  # 後ろ方向は距離が遠い順にソートします。これで、距離が近いものを見たい場合に見る場所が固定できて楽になるはず。  # noqa: E222
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) <= np.pi / 2, observation['obstacles' ]), key=itemgetter('position_length'))),                # noqa: E202
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) >  np.pi / 2, observation['obstacles' ]), key=itemgetter('position_length'), reverse=True)),  # noqa: E202, E222
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) <= np.pi / 2, observation['stars'     ]), key=itemgetter('position_length'))),                # noqa: E202
-                # mapcat(methodcaller('values'), sorted(filter(lambda body: abs(body['position_angle']) >  np.pi / 2, observation['stars'     ]), key=itemgetter('position_length'), reverse=True))   # noqa: E202, E222
             ))
 
         observation = (
@@ -162,13 +154,6 @@ class SelfDriving(gym.Env):
             return -1
 
         return delta if (delta := last_distance - cls._calc_car_and_star_distance(game, car)) > 1 else 0
-
-        # return delta if abs(delta := last_distance - cls._calc_car_and_star_distance(game, car)) < MAX_SPEED / FPS else 0
-
-        # return delta if (delta := last_distance - cls._calc_car_and_star_distance(game, car)) > 0 else 0
-        # return 1 if last_distance - cls._calc_car_and_star_distance(game, car) > 1 else -1
-        # return last_distance - cls._calc_car_and_star_distance(game, car)
-        # return car.velocity.rotated(-car.angle).x / 300
 
     def step(self, action):
         last_score = self.game.cars[0].score
