@@ -3,7 +3,7 @@ import numpy as np
 
 
 learning_rate = 0.1  # 学習率。0〜1。0に近いと学習は遅いけど精度が高く、1に近いと学習は速いけど精度が低くなります。
-discrete = 0.9       # 割引率。0〜1。0に近いと直近の結果を重視、1に近いと将来の結果を重視するようになります。
+discount = 0.9       # 割引率。0〜1。0に近いと直近の結果を重視、1に近いと将来の結果を重視するようになります。
 
 env = gym.make('FrozenLake-v0')
 env._max_episode_steps = 10000  # FrozenLake-v0は100手で終了してしまう（TimeLimitでラップしてある）ので、制限を緩めておきます。
@@ -24,7 +24,7 @@ def train():
             if done and reward == 0:  # FrozenLake-v0はゴールに辿り着いた時の報酬が1でそれ以外は0なので、行動を避ける方向の学習が働きません。
                 reward = -1           # なので、終了 and 報酬 == 0のとき（穴に落ちた or TimeLimitに引っかかったとき）は、報酬を-1にしておきます。
 
-            q_table[observation, action] += learning_rate * (reward + discrete * np.max(q_table[next_observation]) - q_table[observation, action])  # Qテーブルを更新します。
+            q_table[observation, action] += learning_rate * (reward + discount * np.max(q_table[next_observation]) - q_table[observation, action])  # Qテーブルを更新します。
 
             observation = next_observation
 
