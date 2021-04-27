@@ -424,7 +424,7 @@ Stable-Baselines3は本当にすごいですな。学習する部分のコード
 
 私の型落ちCPUのデスクトップPCで148秒待ったところ、学習が完了しました。で、この画面の中で瀕死のミミズみたいな微妙な動きをしているのが、深層強化学習した結果……。
 
-![深層学習する（その1）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-1.gif)
+![深層強化学習する（その1）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-1.gif)
 
 ## 深層強化学習する（その2）
 
@@ -444,7 +444,7 @@ def _calc_reward(cls, game, car, last_score, last_distance):
 
 ……いやいや、ぜんぜん駄目でした。というか、よく考えてみたら10,000ステップって5エピソードとちょっとですもんね。その程度でうまくいくはずなんかありませんな。
 
-![深層学習する（その2）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-2.gif)
+![深層強化学習する（その2）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-2.gif)
 
 ## 深層強化学習する（その3）
 
@@ -460,7 +460,7 @@ model.learn(total_timesteps=1_000_000, log_interval=10)
 
 ……ぜんぜん余裕じゃなかったよ！　学習が終わるまでに16,970秒（4時間42分50秒）も待たされて、暇すぎて死んじゃうかと思ったよ！　学習した結果も、思っていたのと違うし。ドリフトしながら障害物を避けまくる華麗なドライビングを期待していたのに、障害物がない外周をぐるぐる回るという卑怯なやり方を学習しやがりました。
 
-![深層学習する（その3）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-3.gif)
+![深層強化学習する（その3）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-3.gif)
 
 ## 深層強化学習する（その4）
 
@@ -527,7 +527,7 @@ def _calc_reward(cls, game, car, last_score, last_distance):
 
 ……駄目だー！　ぜんぜん学習していないー！　ちょっとだけバックして、あとは全く動かないでやんの。
 
-![深層学習する（その4）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-4.gif)
+![深層強化学習する（その4）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-4.gif)
 
 ## 深層強化学習する（その5）
 
@@ -561,7 +561,7 @@ model.save('self-driving')
 
 やってやりました！　うまくいきましたよ！　流れるような華麗なドライビングです！
 
-![深層学習する（その5）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5.gif)
+![深層強化学習する（その5）の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5.gif)
 
 なんか最後は止まっちゃっていますけど（100万ステップくらい学習したところでもここで止まっているので、たぶんその5のやり方での限界。途中で学習を打ち切ればよかった）、気にしないことにします。もっと他に気になることがあるからで、それは「乱数シードが変わるとどうなるのか」です。試してみましょう。
 
@@ -578,13 +578,13 @@ for _ in range(10):
         env.render()
 ~~~
 
-![深層学習する（その5）の結果（ランダム）](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5-random-seed.gif)
+![深層強化学習する（その5）の結果（ランダム）](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5-random-seed.gif)
 
 ……あれ？　ぜんぜん華麗じゃない。さっきのは、特定の盤面での最適な行動を学習しただけなの？
 
 ほら、あれだ。ずっと同じ盤面をやっていたので過学習したんじゃないかな？　というわけで、最初のころのモデル、300万ステップくらい学習したときのモデルも試してみました。
 
-![深層学習する（その5）の結果（ランダム、300万ステップ）](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5-random-seed-step-3006000.gif)
+![深層強化学習する（その5）の結果（ランダム、300万ステップ）](https://raw.githubusercontent.com/tail-island/sally/main/images/self-driving-train-5-random-seed-step-3006000.gif)
 
 やはり過学習していたみたいで（本当に、途中で学習を打ち切ればよかった）、かなりマシでした。でもやっぱり、どんな盤面でも華麗なドライビングを決める汎化性能は得ていないみたい。まだまだ先は長いですな。
 
@@ -609,3 +609,11 @@ for _ in range(10):
 * 私がDQNのところで書いた「深層強化学習で人間のプレイヤーよりもハイスコアを出した」に類した記述は、ごめんなさい、ミス・リードを誘う誤った書き方です。対戦格闘ゲームとかでの、深層強化学習を使用しないで普通に作られた敵プレイヤーAIでは、人間よりも強いなんてのは簡単に実現可能で、どうやって自然に見えるように弱くするかで苦労していたりします。だから、モデル・フリーの深層強化学習では、今のところ「ゲームのプレイ方法をプログラミングしていないのに解けた」ところが凄いだけなんです。ゲームの強さは、あまり凄くないんですな。本稿で深層強化学習を勧めておいてアレなのですけど、深層強化学習を使わないで普通にプログラムを組んでも、十分に強いAIを作れると思いますよ。
 
 ともあれ、深層学習や深層強化学習はとても楽しいです。楽しみながら、深層強化学習をやってみてください。
+
+----
+
+えっと、あのですね、深層強化学習はまったく使えないという誤解が発生しそうなので、補足させてください。問題が簡単なら、深層強化学習はとても役に立ちます。OpenAI Gymの環境を作り直して、移動（明るい丸が移動先で、暗い丸はその次の移動先）だけをやれば良いようにして深層強化学習した場合の結果は以下のようになります。
+
+![簡単な問題での深層強化学習の結果](https://raw.githubusercontent.com/tail-island/sally/main/images/hennis-carlton.gif)
+
+なかなかのもんでしょ？　報酬は移動先に達した場合は100で、中間報酬は移動先との距離の差。遠ざかった場合や速度が遅い場合の考慮なしの簡単設計です。あと、簡単な問題なので乱数のシードを固定しなくても学習できましたから、どんな盤面でも華麗なドライビングを決めています。やっぱり、深層強化学習はとても楽しいですな。
