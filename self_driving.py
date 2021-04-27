@@ -89,12 +89,12 @@ class SelfDriving(gym.Env):
     @classmethod
     def _create_observation(cls, game):
         def get_values(observation):
-            return flatten(concat(
-                observation['my_car'].values(),
+            return concat(
+                flatten(observation['my_car'].values()),  # Vec2dにはxとyの2要素があるので、flattenしておきます。
                 mapcat(methodcaller('values'), sorted(observation['other_cars'], key=itemgetter('position_length'))),  # 距離が近い順にソートします。前後も分けたほうが良い？
                 mapcat(methodcaller('values'), sorted(observation['obstacles' ], key=itemgetter('position_length'))),  # noqa: E202
                 mapcat(methodcaller('values'), sorted(observation['stars'     ], key=itemgetter('position_length')))   # noqa: E202
-            ))
+            )
 
         observation = (
             np.array(tuple(get_values(game.create_observation(game.cars[0]))), np.float32) /  # noqa: W504
