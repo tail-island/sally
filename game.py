@@ -207,7 +207,7 @@ class Game:
         return create_surface(self.space, self.cars, self.players, self.actions)
 
 
-def play(program_names, seed, screen):
+def play(program_names, seed, screen, need_images=False):
     images = []
 
     game = Game(tuple(map(PlayerProxy, program_names)), seed=seed)
@@ -224,7 +224,8 @@ def play(program_names, seed, screen):
         screen.blit(surface, (0, 0))
         pygame.display.flip()
 
-        images.append(pygame.image.tostring(surface, 'RGB'))
+        if need_images:
+            images.append(pygame.image.tostring(surface, 'RGB'))
 
     return map(attrgetter('name'), game.players), map(attrgetter('score'), game.cars), images
 
@@ -246,7 +247,7 @@ if __name__ == '__main__':
     pygame.display.set_caption('self driving')
     screen = pygame.display.set_mode((800, 640))
 
-    names, scores, images = play(args.program_names, args.seed, screen)
+    names, scores, images = play(args.program_names, args.seed, screen, need_images=args.animation)
 
     for name, score in zip(names, scores):
         print(f'{name}\t{score}')
